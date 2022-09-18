@@ -66,7 +66,6 @@ User user1 =(User) session.getAttribute("current-user");
             <li class="nav-item">
                <a class="nav-link" href="logout">Logout</a>
             </li>
-
             <%
           }
         %>

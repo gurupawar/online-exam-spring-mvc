@@ -10,10 +10,70 @@
 </head>
 <body>
 	<%@include file="../component/navbar.jsp"%>
-	<div class="row mt-5">
-		<div class="container">
-            admin
-		 </div>
+	<div class="container">
+		<div class="row mt-4">
+			<%-- first Col --%>
+			<div class="col-md-4">
+				<div class="card custome__card">
+					<div class="card-body text-center">
+						<img style="max-width: 100px" class="img-fluid"
+							src="../images/user.png" />
+						<h2>4666</h2>
+						<h1>User</h1>
+					</div>
+				</div>
+			</div>
+			<%-- Second Col --%>
+			<div class="col-md-4">
+				<div class="card custome__card">
+					<div class="card-body text-center">
+						<img style="max-width: 100px" class="img-fluid"
+							src="../images/categories.png" />
+						<h2>100</h2>
+						<h1>Test Given</h1>
+					</div>
+				</div>
+			</div>
+			<%-- Third Col --%>
+			<div class="col-md-4">
+				<div class="card custome__card">
+					<div class="card-body text-center">
+						<img style="max-width: 100px" class="img-fluid"
+							src="../images/packaging.png" />
+						<h2>5464</h2>
+						<h1>Products</h1>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<%-- Second Row --%>
+
+		<div class="row mt-4">
+			<%-- first Col --%>
+			<div class="col-md-6">
+				<div class="card custome__card">
+					<div class="card-body text-center">
+						<img style="max-width: 100px" class="img-fluid"
+							src="../images/plus.png" />
+						<h1>Add Question</h1>
+					</div>
+				</div>
+			</div>
+
+			<%-- Second Col --%>
+			<div class="col-md-6">
+				<div class="card custome__card" data-toggle="modal"
+					data-target="#addProductModal">
+					<div class="card-body text-center">
+						<img style="max-width: 100px" class="img-fluid"
+							src="../images/plus.png" />
+						<%-- <p>Click here to add new Product</p> --%>
+						<h1>Add Product</h1>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 </body>
 </html>

@@ -31,5 +31,12 @@
  .card {
         margin:auto !important;
         max-width:700px !important;
-    }
+}
+    .custome__card {
+  transition: 0.2s ease-in-out;
+}
+.custome__card:hover {
+  background: rgb(230, 230, 230);
+  cursor: pointer;
+}
 </style>
