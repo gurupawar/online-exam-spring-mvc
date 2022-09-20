@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,13 +22,18 @@ import com.guru.onlineexam.service.QuestionService;
 import com.guru.onlineexam.service.UserService;
 
 @Controller
-public class MainController {
+public class MainController implements ErrorController {
 
     @Autowired
     UserService userService;
 
     @Autowired
     QuestionService questionService;
+
+    @RequestMapping("/error")
+    public String error() {
+        return "error";
+    }
 
     // ! Home URL mapping
     @GetMapping("/home")
@@ -83,12 +89,16 @@ public class MainController {
             System.out.println("current-user:-" + user);
 
             if (user.getUser_type().equals("admin")) {
+                List<Question> tCount = userService.getTotolUsers();
+                httpSession.setAttribute("totalUser", tCount.get(0));
                 System.out.println("you are in admin panel");
                 httpSession.setAttribute("user_type", user.getUser_type());
                 mv.setViewName("admin");
             } else if (user.getUser_type().equals("normal")) {
+                List<Question> subList = questionService.getSubList();
                 httpSession.setAttribute("user_type", user.getUser_type());
                 System.out.println("you are normal user and you are in Question Page");
+                httpSession.setAttribute("sublist", subList);
                 mv.setViewName("QueType");
             }
 
@@ -192,8 +202,28 @@ public class MainController {
 
         ModelAndView mv = new ModelAndView();
         mv.setViewName("result");
+        return mv;
+    }
+
+    // ! addQuestion handler
+    @RequestMapping("addQuestion")
+    public String addQuestion() {
+        return "addQuestion";
+    }
+
+    @RequestMapping("addNewQuestion")
+    public ModelAndView addNewQuestion(@RequestParam("q_question") String q_question,
+            @RequestParam("q_option1") String q_option1, @RequestParam("q_option2") String q_option2,
+            @RequestParam("q_option3") String q_option3, @RequestParam("q_option4") String q_option4,
+            @RequestParam("q_answeser") String q_answeser, @RequestParam("q_subject") String q_subject) {
+        System.out.println("from addNewQuestion");
+        ModelAndView mv = new ModelAndView();
+        questionService.addQuestionHandler(q_question, q_option1, q_option2, q_option3, q_option4, q_answeser,
+                q_subject);
+        mv.setViewName("admin");
+        mv.addObject("msg",
+                "<div class='alert alert-success alert-dismissible fade show' role='alert'>New question added successfully🎉 <button type='button' class='close' data-dismiss='alert' aria-label='Close'> <span aria-hidden='true'>&times;</span> </button> </div>");
 
         return mv;
-
     }
 }

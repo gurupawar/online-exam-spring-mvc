@@ -1,11 +1,17 @@
 package com.guru.onlineexam.service;
 
 import org.hibernate.query.Query;
+
+
+import java.util.List;
+
+
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.guru.onlineexam.dao.MainDao;
+import com.guru.onlineexam.entity.Question;
 import com.guru.onlineexam.entity.User;
 
 @Service
@@ -56,6 +62,16 @@ public class UserService {
         }
         return user;
 
+    }
+
+    public List<Question> getTotolUsers() {
+        System.out.println("getTotalUser");
+        String query = "SELECT COUNT(*) FROM User";
+        Session session = maindDao.getSession();
+        Query q = session.createQuery(query);
+        List<Question> count = q.list();
+        System.out.println(count);
+        return count;
     }
 
 }
