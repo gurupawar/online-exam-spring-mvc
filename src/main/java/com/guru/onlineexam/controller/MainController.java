@@ -101,7 +101,6 @@ public class MainController implements ErrorController {
                 httpSession.setAttribute("sublist", subList);
                 mv.setViewName("QueType");
             }
-
         }
         return mv;
     }
@@ -211,6 +210,7 @@ public class MainController implements ErrorController {
         return "addQuestion";
     }
 
+    // ! Add New Question in Database
     @RequestMapping("addNewQuestion")
     public ModelAndView addNewQuestion(@RequestParam("q_question") String q_question,
             @RequestParam("q_option1") String q_option1, @RequestParam("q_option2") String q_option2,
@@ -223,7 +223,17 @@ public class MainController implements ErrorController {
         mv.setViewName("admin");
         mv.addObject("msg",
                 "<div class='alert alert-success alert-dismissible fade show' role='alert'>New question added successfully🎉 <button type='button' class='close' data-dismiss='alert' aria-label='Close'> <span aria-hidden='true'>&times;</span> </button> </div>");
+        return mv;
+    }
 
+    // ! Fetch Select Subject Question in Admin Page
+    @RequestMapping("fetchQuestion")
+    public ModelAndView fetchQuestion(@RequestParam("selectSubject") String selectSubject) {
+        ModelAndView mv = new ModelAndView();
+        List<Question> list = questionService.getSelectedSubjectQulistionList(selectSubject);
+        mv.setViewName("admin");
+        mv.addObject("QueList", list);
+        System.out.println(list);
         return mv;
     }
 }

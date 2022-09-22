@@ -67,4 +67,9 @@ public class QuestionService {
         System.out.println("new que added...");
 
     }
+
+    // ! Return Questions List by selecting Suject
+    public List<Question> getSelectedSubjectQulistionList(String selectSubject) {
+        return getQuestion(selectSubject);
+    }
 }

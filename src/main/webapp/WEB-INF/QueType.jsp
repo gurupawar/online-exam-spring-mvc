@@ -1,11 +1,7 @@
 <%@page import="java.util.List"%>
 <%@page import="com.guru.onlineexam.entity.Question"%>
 <%@page import="com.guru.onlineexam.service.QuestionService"%>
-<%
-    QuestionService qs = new QuestionService();
-    List<Question> qList = qs.getSubList();
-    out.println(qList);
-%>
+
 
 
 <!DOCTYPE html>
@@ -28,15 +24,9 @@
                 <form action="startQuiz" method="post" class="text-center">
                     <div class="form-group mt-5" style="min-width:300px; display:inline-block;">
                         <select name="selectedOption" class="form-control" id="exampleFormControlSelect1">
-                        <select name="selectedOption" class="form-control" id="exampleFormControlSelect1">
-                           <%
-
-                           %>
-
                            <option value="java">Java</option>
                            <option value="gk">General Knowledge</option>
                            <option value="math">Math</option>
-                        </select>
                         </select>
                     </div>
                         <button class="btn-dark rounded py-1 ml-2" style="cursor:pointer;">Start quiz</div>
@@ -45,6 +35,5 @@
         </div>
 	</div>
     </div>
-     ${subList}
 </body>
 </html>
