@@ -42,4 +42,18 @@
   background: rgb(230, 230, 230);
   cursor: pointer;
 }
+
+.queNo__que {
+  margin-bottom:1rem;
+  display:inline-block;
+}
+
+#qno, #q_que {
+  border:none;
+  background:inherit;
+  font-weight:bold;
+}
+#q_que {
+  font-size:1.5rem;
+}
 </style>

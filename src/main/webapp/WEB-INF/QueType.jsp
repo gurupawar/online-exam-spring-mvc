@@ -2,8 +2,6 @@
 <%@page import="com.guru.onlineexam.entity.Question"%>
 <%@page import="com.guru.onlineexam.service.QuestionService"%>
 
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>

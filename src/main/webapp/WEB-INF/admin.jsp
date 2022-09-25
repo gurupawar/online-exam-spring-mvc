@@ -59,7 +59,7 @@
 					<div class="card-body text-center">
 						<img style="max-width: 100px" class="img-fluid"
 							src="../images/plus.png" />
-						<h1>Add Product</h1>
+						<h1>Add Question</h1>
 					</div>
 				</div>
 			</div>

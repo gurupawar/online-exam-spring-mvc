@@ -1,5 +1,7 @@
 package com.guru.onlineexam.controller;
 
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 
+import com.guru.onlineexam.entity.Answer;
 import com.guru.onlineexam.entity.Question;
 import com.guru.onlineexam.entity.User;
 import com.guru.onlineexam.service.QuestionService;
@@ -135,6 +138,10 @@ public class MainController implements ErrorController {
             httpSession.setAttribute("qNumber", 0);
             httpSession.setAttribute(("score"), 0);
             httpSession.setAttribute("queList_session", questionList);
+
+            HashMap<Integer, Answer> hashmap = new HashMap<Integer, Answer>();
+            httpSession.setAttribute(("userExamSubmittion"), hashmap);
+
             mv.addObject("sorted_Question", queList);
             mv.setViewName("question");
         }
@@ -197,9 +204,20 @@ public class MainController implements ErrorController {
 
     // ! endQuiz button handler
     @RequestMapping("endQuiz")
-    public ModelAndView endQuiz() {
-
+    public ModelAndView endQuiz(HttpServletRequest request) {
         ModelAndView mv = new ModelAndView();
+        HttpSession httpSession = request.getSession();
+        HashMap<Integer, Answer> hashList = (HashMap<Integer, Answer>) httpSession.getAttribute("userExamSubmittion");
+
+        Collection<Answer> userGivenQueList = hashList.values();
+        Integer finalScore = 0;
+        for (Answer answer : userGivenQueList) {
+            if (answer.getOriginalAnswer().equals(answer.getSubmittedAnswer())) {
+                finalScore = (Integer) httpSession.getAttribute("score") + 1;
+            }
+        }
+        mv.addObject("finalScore", finalScore);
+        mv.addObject("userSumittedAnsQue", userGivenQueList);
         mv.setViewName("result");
         return mv;
     }
@@ -235,5 +253,26 @@ public class MainController implements ErrorController {
         mv.addObject("QueList", list);
         System.out.println(list);
         return mv;
+    }
+
+    @RequestMapping("saveResponse")
+    public void saveResponse(Answer answer, HttpServletRequest request) {
+
+        HttpSession httpSession = request.getSession();
+
+        List<Question> list = (List<Question>) httpSession.getAttribute("queList_session");
+
+        for (Question que : list) {
+            String i = String.valueOf(answer.getQno()); // TODO : tyype casting Int to String
+            if (que.getQ_id().equals(i)) {
+                System.out.println();
+                answer.setOriginalAnswer(que.getAns());
+            }
+        }
+
+        HashMap<Integer, Answer> hashList = (HashMap<Integer, Answer>) httpSession.getAttribute("userExamSubmittion");
+        hashList.put(answer.getQno(), answer);
+        System.out.println(hashList);
+
     }
 }

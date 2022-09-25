@@ -39,8 +39,7 @@ public class QuestionService {
     }
 
     public List<Question> getSubList() {
-        // Session session = mainDao.getSession();
-        Session session = sessionFactory.openSession();
+        Session session = mainDao.getSession();
         String query = "SELECT DISTINCT que_subject FROM Question";
         Query q = session.createQuery(query);
         List<Question> sublist = q.getResultList();

@@ -30,29 +30,32 @@
 			<div class="card bg-light">
               ${alert_msg}
             <div class="card-body">
-            <h3 class="">Q.${sorted_Question.q_id} ${sorted_Question.question}</h3>
-                <form action="nexQuestion" method="post" class="mt-4">
+                <form name="que_form" action="nexQuestion" method="post" class="mt-4">
+                    <div class="queNo__que">
+                        <input id="qno" text="text" name="qno" value="${sorted_Question.q_id}" readonly /><br>
+                        <input id="q_que" text="text" name="q_que" value="${sorted_Question.question}" readonly/>
+                    </div>
                     <div class="ml-2">
                         <div class="form-check">
-                        <input class="form-check-input" type="radio" name="selectedOption" id="gridRadios1" value="${sorted_Question.opt1}">
+                        <input class="form-check-input"  type="radio" name="selectedOption" id="gridRadios1" value="${sorted_Question.opt1}" onclick="sendData()">
                             <label class="form-check-label" for="gridRadios1">
                              ${sorted_Question.opt1}
                             </label>
                     </div>
                     <div class="form-check">
-                            <input class="form-check-input" type="radio" name="selectedOption" id="gridRadios2" value="${sorted_Question.opt2}">
+                            <input class="form-check-input" type="radio" name="selectedOption" id="gridRadios2" value="${sorted_Question.opt2}" onclick="sendData()">
                                 <label class="form-check-label" for="gridRadios2">
                                  ${sorted_Question.opt2}
                             </label>
                     </div>
                      <div class="form-check">
-                            <input class="form-check-input" type="radio" name="selectedOption" id="gridRadios3" value="${sorted_Question.opt3}">
+                            <input class="form-check-input" type="radio" name="selectedOption" id="gridRadios3" value="${sorted_Question.opt3}" onclick="sendData()">
                                 <label class="form-check-label" for="gridRadios3">
                                  ${sorted_Question.opt3}
                             </label>
                     </div>
                      <div class="form-check mb-4">
-                            <input class="form-check-input" type="radio" name="selectedOption" id="gridRadios4" value="${sorted_Question.opt4}">
+                            <input class="form-check-input" type="radio" name="selectedOption" id="gridRadios4" value="${sorted_Question.opt4}" onclick="sendData()">
                                 <label class="form-check-label" for="gridRadios4">
                                  ${sorted_Question.opt4}
                             </label>
@@ -70,5 +73,20 @@
             </div>
         </div>
 	</div>
+
+<script type="text/javascript">
+
+function sendData() {
+    console.log("hel");
+    var xmlhttp = new XMLHttpRequest();
+    var qno = document.que_form.qno.value;
+    var submittedAnswer = document.que_form.selectedOption.value;
+    var question = document.que_form.q_que.value;
+    var data = "qno="+qno+"&submittedAnswer="+submittedAnswer+"&question="+question;
+
+    xmlhttp.open("get", "saveResponse?"+data);
+    xmlhttp.send();
+}
+</script>
 </body>
 </html>
