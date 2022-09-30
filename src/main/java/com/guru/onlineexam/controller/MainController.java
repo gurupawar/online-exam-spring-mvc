@@ -255,6 +255,7 @@ public class MainController implements ErrorController {
         return mv;
     }
 
+    // Radio Button Handler
     @RequestMapping("saveResponse")
     public void saveResponse(Answer answer, HttpServletRequest request) {
 
